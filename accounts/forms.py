@@ -46,26 +46,37 @@ def validate_password(password):
         return True
 
 
-class CreateUserForm(forms.ModelForm):
-    password = forms.CharField(max_length=64)
+class CreateUserForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField()
     password2 = forms.CharField(max_length=64)
+    first_name = forms.CharField()
+    last_name = forms.CharField()
 
-    class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name', 'password']
-
-    def clean_password(self):
+    def clean(self):
+        data = super().clean()
+        errors = []
+        if data['password'] != data['password2']:
+            self.add_error('password','Podaj dwukrotnie takie samo hasło!')
+        if not 'password' in data:
+            return data
         if not validate_password(self.cleaned_data['password']):
-            self.add_error('password', 'Wrong password')
-        return self.cleaned_data['password']
+            self.add_error('password','Nowe hasło musi zawierać cyfrę, liczbę, dużą i małą literę.')
+        else:
+            return data
 
-    def clean_password(self):
-        # Check that the two password entries match
-        password = self.cleaned_data['password']
-        password2 = self.cleaned_data['password2']
-        if password and password2 and password != password2:
-            self.add_error('password', 'Podaj dwukrotnie takie samo hasło!')
-        return self.cleaned_data['password']
+    # def clean_password(self):
+    #     if not validate_password(self.cleaned_data['password']):
+    #         self.add_error('password','Wrong password')
+    #     return self.cleaned_data['password']
+    #
+    # def clean_password(self):
+    #     # Check that the two password entries match
+    #     password = self.cleaned_data['password']
+    #     password2 = self.cleaned_data['password2']
+    #     if password and password2 and password != password2:
+    #         self.add_error('password','Podaj dwukrotnie takie samo hasło!')
+    #     return self.cleaned_data['password'], self.cleaned_data['passwor2']
 
 
 class UpdateUserForm(forms.Form):
@@ -82,12 +93,19 @@ class ChangePassword(forms.Form):
         data = super().clean()
         errors = []
         if data['new_password'] != data['new_password2']:
-            self.add_error('new_password', 'Podaj dwukrotnie takie samo hasło!')
+            self.add_error('new_password','Podaj dwukrotnie takie samo hasło!')
         if not 'new_password' in data:
             return data
         if not validate_password(self.cleaned_data['new_password']):
-            self.add_error('new_password', 'Nowe hasło musi zawierać cyfrę, liczbę, dużą i małą literę.')
+            self.add_error('new_password','Nowe hasło musi zawierać cyfrę, liczbę, dużą i małą literę.')
         else:
             return data
 
 
+class PasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Stare hasło'}))
+    new_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Nowe hasło'}))
+    new_password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Powtórz nowe hasło'}))
+
+    class Meta:
+        model = User

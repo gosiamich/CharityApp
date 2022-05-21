@@ -11,16 +11,21 @@ from accounts.models import User
 from fundraiser_app.models import Donation
 
 
-class Register(View):
+class RegisterView(View):
     def get(self, request):
         form = CreateUserForm()
         return render(request, 'fundraiser_app/register.html')
 
     def post(self, request):
         form = CreateUserForm(request.POST)
+        # breakpoint()
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            user = User.objects.create(email= email,first_name=first_name,last_name=last_name)
+            user.set_password(password)
             user.save()
             return redirect('login')
         else:
@@ -49,12 +54,12 @@ class LoginView(View):
         return render(request, 'fundraiser_app/login.html', {'form': form})
 
 
-class LogOut(View):
+class LogOutView(View):
     def get(self, request):
         logout(request)
         return redirect('landing_page')
 
-class UserProfile(View):
+class UserProfileView(View):
     def get(self, request):
         donations = Donation.objects.filter(user_id=self.request.user.id).order_by('-is_taken')
         return render(request, "fundraiser_app/user_profile.html", {'donations': donations})
@@ -67,7 +72,7 @@ class UserProfile(View):
         donations = Donation.objects.filter(user_id=self.request.user.id).order_by('-is_taken')
         return render(request, "fundraiser_app/user_profile.html", {'donations': donations})
 
-class UpdateUser(View):
+class UpdateUserView(View):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
         form = UpdateUserForm(initial={"first_name": request.user.first_name,"last_name": request.user.last_name})
