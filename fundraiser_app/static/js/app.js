@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // const formularz = document.querySelector('#form')
       const data = new FormData()
       data.append("categories", input_categories_id);
-      data.append("institution_ID", input_organization_id);
+      data.append("institution_id", input_organization_id);
       data.append("quantity", input_bags);
       data.append("address_street_no", street);
       data.append("city", city);

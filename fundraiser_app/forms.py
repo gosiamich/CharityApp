@@ -18,14 +18,6 @@ class AddDonationForm(forms.Form):
     categories = forms.CharField(max_length=64, required=False)
     pick_up_comment = forms.CharField(required=False)
 
-    # def clean(self):
-    #     data = super().clean()
-    #     errors = []
-    #     if data['password'] != data['password2']:
-    #         errors.append('Podaj dwukrotnie takie samo hasło!')
-    #         raise forms.ValidationError(errors)
-    #     else:
-    #         return data
 
 # from django import forms
 # from splitjson.widgets import SplitJSONWidget
