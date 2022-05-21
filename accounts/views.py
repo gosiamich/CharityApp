@@ -98,10 +98,17 @@ class ChangePasswordView(View):
         u = User.objects.get(pk=request.user.id)
         form = ChangePassword(request.POST)
         if form.is_valid():
-            new_password = request.POST.get('new_password')
-            u.set_password(new_password)
-            u.save()
-            return redirect(reverse('user_profile'))
+            old_password = request.POST.get('old_password')
+            user = authenticate(email=request.user.email, password=old_password)
+            if user is None:
+                form.add_error('old_password', 'Podano błędne aktualne hasło')
+                return render(request, 'fundraiser_app/change_password.html',
+                              {'form': form, 'message': 'Formularz zmiany hasła:'})
+            else:
+                new_password = request.POST.get('new_password')
+                u.set_password(new_password)
+                u.save()
+                return redirect(reverse('user_profile'))
         return render(request, 'fundraiser_app/change_password.html', {'form': form, 'message': 'Formularz zmiany hasła'})
 
 class PasswordView(PasswordChangeView):

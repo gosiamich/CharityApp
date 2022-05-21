@@ -7,34 +7,39 @@ from accounts.models import User
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    email = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Hasło'}))
 
 
 def validate_length(password):
     return len(password) >= 7
 
+
 def validate_upper(password):
     return any(x for x in password if x.isupper())
 
+
 def validate_lower(password):
     return any(x for x in password if x.islower())
+
 
 def validate_special(password):
     special = """!@#$%^&*()_+=-~{}[]:"|;'\<>?,./\|"""
     return any(x for x in password if x in special)
 
+
 def validate_digit(password):
     return any(x for x in password if x.isdigit())
 
+
 def validate_password(password):
     validators = [
-            validate_digit,
-            validate_special,
-            validate_lower,
-            validate_upper,
-            validate_length
-        ]
+        validate_digit,
+        validate_special,
+        validate_lower,
+        validate_upper,
+        validate_length
+    ]
     for validator in validators:
         if not validator(password):
             return False
@@ -51,7 +56,7 @@ class CreateUserForm(forms.ModelForm):
 
     def clean_password(self):
         if not validate_password(self.cleaned_data['password']):
-            raise ValidationError('Wrong password')
+            self.add_error('password', 'Wrong password')
         return self.cleaned_data['password']
 
     def clean_password(self):
@@ -59,7 +64,7 @@ class CreateUserForm(forms.ModelForm):
         password = self.cleaned_data['password']
         password2 = self.cleaned_data['password2']
         if password and password2 and password != password2:
-            raise ValidationError('Podaj dwukrotnie takie samo hasło!')
+            self.add_error('password', 'Podaj dwukrotnie takie samo hasło!')
         return self.cleaned_data['password']
 
 
@@ -77,10 +82,14 @@ class ChangePassword(forms.Form):
         data = super().clean()
         errors = []
         if data['new_password'] != data['new_password2']:
-            errors.append('Podaj dwukrotnie takie samo hasło!')
-            raise forms.ValidationError(errors)
+            self.add_error('new_password', 'Podaj dwukrotnie takie samo hasło!')
+        if not 'new_password' in data:
+            return data
+        if not validate_password(self.cleaned_data['new_password']):
+            self.add_error('new_password', 'Nowe hasło musi zawierać cyfrę, liczbę, dużą i małą literę.')
         else:
             return data
+
 
 class PasswordForm(PasswordChangeForm):
     old_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Stare hasło'}))
@@ -89,9 +98,3 @@ class PasswordForm(PasswordChangeForm):
 
     class Meta:
         model = User
-
-
-
-
-
-
