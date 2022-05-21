@@ -85,7 +85,8 @@ class UpdateUserView(View):
             password = request.POST.get('password')
             user = authenticate(email=request.user.email, password=password)
             if user is None:
-                return render(request, 'fundraiser_app/update_user.html',{'form': form,'message': 'Modify Your data:', 'error': 'Podano błędne hasło'})
+                form.add_error('password', 'Podano błędne aktualne hasło')
+                return render(request, 'fundraiser_app/update_user.html',{'form': form,'message': 'Formularz zmiany danych:'})
             else:
                 user.first_name = form.cleaned_data["first_name"]
                 user.last_name = form.cleaned_data["last_name"]

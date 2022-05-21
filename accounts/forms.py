@@ -65,23 +65,11 @@ class CreateUserForm(forms.Form):
         else:
             return data
 
-    # def clean_password(self):
-    #     if not validate_password(self.cleaned_data['password']):
-    #         self.add_error('password','Wrong password')
-    #     return self.cleaned_data['password']
-    #
-    # def clean_password(self):
-    #     # Check that the two password entries match
-    #     password = self.cleaned_data['password']
-    #     password2 = self.cleaned_data['password2']
-    #     if password and password2 and password != password2:
-    #         self.add_error('password','Podaj dwukrotnie takie samo hasło!')
-    #     return self.cleaned_data['password'], self.cleaned_data['passwor2']
-
 
 class UpdateUserForm(forms.Form):
-    first_name = forms.CharField(label='Imię', widget=forms.TextInput())
+    first_name = forms.CharField(label='  Imię', widget=forms.TextInput())
     last_name = forms.CharField(label='Nazwisko', widget=forms.TextInput())
+    password = forms.CharField(label='  Akrualne hasło', widget=forms.PasswordInput())
 
 
 class ChangePassword(forms.Form):
