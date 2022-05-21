@@ -1,0 +1,47 @@
+{% extends 'fundraiser_app/base.html' %}
+{% block header_class %} header--form-page {% endblock %}
+{% block content %}
+     <section class="login-page">
+        <h2>Profil użytkownika</h2>
+            <div class="steps--item">
+                <p>Imię: {{ user.first_name }}</p>
+            </div>
+            <div class="steps--item">
+                <p>Nazwisko: {{ user.last_name }}</p>
+            </div>
+            <div class="steps--item">
+                <h4>Email:  {{ user.email }} </h4>
+            </div>
+     <h2>Przekazane dary</h2>
+    <table style='font-size:150%'>
+      <tr>
+          <th> Ilość worków</th>
+          <th> Instytucja </th>
+          <th>Kategorie darów</th>
+          <th> Data przekazania </th>
+          <th> Godzina przekazania </th>
+          <th>Status</th>
+      </tr>
+         {% for donation in donations %}
+      <tr {% if donation.is_taken == True %} style="color: gray; font-style: italic" {% endif %}>
+       <th> {{ donation.quantity}}</th>
+        <th> {{ donation.institution}}</th>
+        <th> {% for category in donation.categories.all %} {{ category.name }} {% endfor %}</th>
+        <th> {{ donation.pick_up_date }}</th>
+        <th> {{ donation.pick_up_time }}</th>
+        <th>{% if donation.is_taken == True %}
+                   <strong > Dary odebrane </strong>
+            {% else %}
+                <strong style="color: red; font-style: italic">Dary nieodebrane</strong> </th>
+            <th>
+                <form method="post" action="">
+                {% csrf_token %}
+               <button type="submit" name="donation_id" value="{{ donation.id }}"> Zmień status</button>
+                </form>
+            </th>
+            {% endif %}
+      </tr>
+         {% endfor %}
+    </table>
+</section>
+{% endblock %}
