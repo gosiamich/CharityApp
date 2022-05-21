@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'fundraiser_app'
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ except ModuleNotFoundError:
     print('File local_settings.py not found!')
     exit(0)
 
-
+AUTH_USER_MODEL = 'accounts.User'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
