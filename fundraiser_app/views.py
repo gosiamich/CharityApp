@@ -19,33 +19,34 @@ class LandingPage(View):
         # foundations = paginator.get_page(page)
         orgs_non_governmentals = Institution.objects.filter(type='Organizacja pozarządowa')
         local_collections = Institution.objects.filter(type='Zbiórka lokalna')
-        return render(request, "fundraiser_app/index.html",\
-                      {'quantity_all':quantity_all,\
-                        'amounts_of_institution':amounts_of_institution,\
-                        'foundations':foundations,\
-                        'local_collections':local_collections,\
-                        'orgs_non_governmentals':orgs_non_governmentals}
+        return render(request, "fundraiser_app/index.html", \
+                      {'quantity_all': quantity_all, \
+                       'amounts_of_institution': amounts_of_institution, \
+                       'foundations': foundations, \
+                       'local_collections': local_collections, \
+                       'orgs_non_governmentals': orgs_non_governmentals}
                       )
+
 
 class AddDonationView(LoginRequiredMixin, View):
     def get(self, request):
         categories = Category.objects.all()
         organizations = Institution.objects.all()
-        return render(request, "fundraiser_app/form.html",{'categories': categories, 'organizations': organizations})
+        return render(request, "fundraiser_app/form.html", {'categories': categories, 'organizations': organizations})
 
     def post(self, request):
         data = request.POST
-        breakpoint()
+        # breakpoint()
         donation = Donation.objects.create(user=request.user,
                                            quantity=data.get('quantity', False),
-                                           institution= Institution.objects.get(id=data.get('institution_id', False)),
+                                           institution=Institution.objects.get(id=int(data.get('institution_id', False))),
                                            address_street_no=data.get('address_street_no', False),
                                            city=data.get('city', False),
                                            zip_code=data.get('zip_code', False),
-                                           phone_number=data.get('phone_number',False),
+                                           phone_number=data.get('phone_number', False),
                                            pick_up_date=data.get('pick_up_date'),
                                            pick_up_time=data.get('pick_up_time'),
-                                           pick_up_comment=data.get('pick_up_comment',False),
+                                           pick_up_comment=data.get('pick_up_comment', False),
                                            )
         for object in data.get('categories', False):
             donation.categories.add(Category.objects.get(id=object))
@@ -76,7 +77,7 @@ class AddDonationView(LoginRequiredMixin, View):
         #     organizations = Institution.objects.all()
         #     return render(request, "fundraiser_app/form.html", {'categories': categories, 'organizations': organizations})
 
+
 class FormConfirmation(View):
     def get(self, request):
         return render(request, "fundraiser_app/form-confirmation.html")
-
