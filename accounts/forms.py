@@ -46,7 +46,7 @@ class CreateUserForm(forms.ModelForm):
     password2 = forms.CharField(max_length=64)
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['email', 'first_name', 'last_name', 'password']
 
     def clean_password(self):
@@ -88,7 +88,7 @@ class PasswordForm(PasswordChangeForm):
     new_password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Powtórz nowe hasło'}))
 
     class Meta:
-        model = CustomUser
+        model = User
 
 
 

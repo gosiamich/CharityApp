@@ -42,7 +42,7 @@ class LoginView(View):
                 login(request, user)
                 return redirect('landing_page')
             else:
-                if len(CustomUser.objects.filter(email=email)) >0:
+                if len(User.objects.filter(email=email)) >0:
                     return render(request, 'fundraiser_app/login.html', {'form': form, 'message': 'Wprowadź poprawne hasło'})
                 else:
                     return redirect('register')
@@ -69,7 +69,7 @@ class UserProfile(View):
 
 class UpdateUser(View):
     def get(self, request):
-        user = CustomUser.objects.get(pk=request.user.id)
+        user = User.objects.get(pk=request.user.id)
         form = UpdateUserForm(initial={"first_name": request.user.first_name,"last_name": request.user.last_name})
         return render(request, 'fundraiser_app/update_user.html',
                       {'form': form, 'message': 'Formularz zmiany danych:'})
@@ -95,7 +95,7 @@ class ChangePasswordView(View):
         return render(request, 'fundraiser_app/change_password.html', {'form': form, 'message': 'Formularz zmiany hasła'})
 
     def post(self, request):
-        u = CustomUser.objects.get(pk=request.user.id)
+        u = User.objects.get(pk=request.user.id)
         form = ChangePassword(request.POST)
         if form.is_valid():
             new_password = request.POST.get('new_password')
