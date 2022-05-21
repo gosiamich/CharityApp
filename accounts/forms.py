@@ -91,10 +91,3 @@ class ChangePassword(forms.Form):
             return data
 
 
-class PasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Stare hasło'}))
-    new_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Nowe hasło'}))
-    new_password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Powtórz nowe hasło'}))
-
-    class Meta:
-        model = User

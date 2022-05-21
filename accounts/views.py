@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import View
 from django.core.exceptions import ValidationError
 
-from accounts.forms import CreateUserForm, LoginForm, UpdateUserForm, ChangePassword, PasswordForm
+from accounts.forms import CreateUserForm, LoginForm, UpdateUserForm, ChangePassword
 from accounts.models import User
 from fundraiser_app.models import Donation
 
@@ -111,6 +111,3 @@ class ChangePasswordView(View):
                 return redirect(reverse('user_profile'))
         return render(request, 'fundraiser_app/change_password.html', {'form': form, 'message': 'Formularz zmiany hasła'})
 
-class PasswordView(PasswordChangeView):
-    form_class = PasswordForm
-    success_url = reverse_lazy('login')

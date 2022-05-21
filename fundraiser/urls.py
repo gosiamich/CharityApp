@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from fundraiser_app.views import LandingPage, AddDonationView, FormConfirmation
-from accounts.views import  LoginView, Register, LogOut, UserProfile, UpdateUser, ChangePasswordView, PasswordView
+from accounts.views import  LoginView, Register, LogOut, UserProfile, UpdateUser, ChangePasswordView,
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -29,5 +29,4 @@ urlpatterns = [
     path('updateuser/', UpdateUser.as_view(), name='update_user'),
     path('changepassword/', ChangePasswordView.as_view(), name='change_password'),
     path('form_confirmation/', FormConfirmation.as_view(), name= 'form_confirmation'),
-    path('password/', PasswordView.as_view(), name='password'),
     ]
