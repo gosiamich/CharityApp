@@ -233,80 +233,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
-      console.log(this.currentStep)
+
       // TODO: get data from inputs and show them in summary
-      //selected categories
-
-      if (this.currentStep == 5) {
-        let input_categories = [...document.querySelectorAll(".input_categories")].filter(el => el.checked === true);
-        const input_categories_id = [];
-        const input_categories_names = [];
-        input_categories.forEach(el => {
-          input_categories_id.push(parseInt(el.value));
-          input_categories_names.push(el.parentElement.children[2].innerText);
-        })
-        console.log(input_categories);
-        console.log(input_categories_id);
-        console.log(input_categories_names)
-
-        let input_bags = parseInt(document.querySelector(".input-bags").value);
-
-        let input_organization = [...document.querySelectorAll(".input_organization")].filter(el => el.checked === true)[0]
-        const input_organization_id = parseInt(input_organization.value);
-        const input_organization_name = input_organization.parentElement.children[2].children[0].innerText
-
-        console.log(input_organization);
-        console.log(input_organization_id);
-        console.log(input_organization_name);
-
-        const street = document.querySelector("#street").value;
-        const city = document.querySelector("#city").value;
-        const postcode = document.querySelector("#postcode").value;
-        const phone = document.querySelector("#phone").value;
-        const date = document.querySelector("#date").value;
-        const time = document.querySelector("#time").value;
-        const more_info = document.querySelector("#more_info").value;
-
-
-        document.querySelector("#summary-bags-category").innerText = input_categories_names;
-        document.querySelector("#summary-organization").innerText = input_organization_name
-        const summary_adress = document.querySelector("#summary-adress").children
-        const summary_term = document.querySelector("#summary-term").children
-        summary_adress[0].innerText = street
-        summary_adress[1].innerText = city
-        summary_adress[2].innerText = postcode
-        summary_adress[3].innerText = phone
-        summary_term[0].innerText = date
-        summary_term[1].innerText = time
-        summary_term[2].innerText = more_info
-
-      }
     }
+
     /**
      * Submit form
      *
-     *
-
-
      * TODO: validation, send data to server
      */
     submit(e) {
       e.preventDefault();
       this.currentStep++;
       this.updateForm();
-
-      const token = document.getElementsByName("csrfmiddlewaretoken")[0];
-
-      $.ajax({
-            url : "/ajax/",
-            type: "POST",
-            data: $("form").serialize(),
-            dataType: 'json',
-            success: function(){
-              console.log('ok');
-              window.location.assign("/form-confirmation/");
-        }
-      })
     }
   }
   const form = document.querySelector(".form--steps");

@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * HomePage - Help section
    */
-  class Help {
+    class Help {
     constructor($el) {
       this.$el = $el;
-      this. = $el.querySelector(".help--buttons");
+      this.$buttonsContainer = $el.querySelector(".help--buttons");
       this.$slidesContainers = $el.querySelectorAll(".help--slides");
       this.currentSlide = this.$buttonsContainer.querySelector(".active").parentElement.dataset.id;
       this.init();
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
       e.preventDefault();
       const $btn = e.target;
 
-      // Buttons Active class change
+  // Buttons Active class change
       [...this.$buttonsContainer.children].forEach(btn => btn.firstElementChild.classList.remove("active"));
       $btn.classList.add("active");
 

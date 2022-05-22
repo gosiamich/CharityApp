@@ -1,6 +1,7 @@
 {% extends 'fundraiser_app/base.html' %}
  {% load static %}
  {% block header_class %} header--main-page {% endblock %}
+
 {% block content %}
 
       <div class="slogan container container--90">
@@ -71,9 +72,9 @@
       <h2>Komu pomagamy?</h2>
 
       <ul class="help--buttons">
-        <li data-id="1"><a href="#" class="btn btn--without-border active">Fundacjom</a></li>
-        <li data-id="2"><a href="#" class="btn btn--without-border">Organizacjom pozarządowym</a></li>
-        <li data-id="3"><a href="#" class="btn btn--without-border">Lokalnym zbiórkom</a></li>
+        <li data-id="1"><a href="#help" class="btn btn--without-border" active>Fundacjom</a></li>
+        <li data-id="2"><a href="#help" class="btn btn--without-border">Organizacjom pozarządowym</a></li>
+        <li data-id="3"><a href="#help" class="btn btn--without-border">Lokalnym zbiórkom</a></li>
       </ul>
 
       <!-- SLIDE 1 -->
@@ -160,4 +161,5 @@
         -->
       </div>
     </section>
+<script src="{% static 'js/app.js' %}"></script>
 {% endblock %}
