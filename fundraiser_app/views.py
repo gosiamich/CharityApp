@@ -35,7 +35,8 @@ class AddDonationView(LoginRequiredMixin, View):
         return render(request, "fundraiser_app/form.html", {'categories': categories, 'organizations': organizations})
 
     def post(self, request):
-        data = request.POST.dict()
+        data = request.POST
+        form = AddDonationForm(data)
         breakpoint()
         instit = data.get('institution_id', False)
         input_id = int(instit)

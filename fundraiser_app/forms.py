@@ -17,7 +17,9 @@ class AddDonationForm(forms.Form):
     pick_up_time = forms.TimeField()
     categories = forms.CharField(max_length=64, required=False)
     pick_up_comment = forms.CharField(required=False)
-
+# form.errors.as_json()
+# {"sender": [{"message": "Enter a valid email address.", "code": "invalid"}],
+# "subject": [{"message": "This field is required.", "code": "required"}]}
 
 # from django import forms
 # from splitjson.widgets import SplitJSONWidget
