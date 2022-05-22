@@ -36,10 +36,13 @@ class AddDonationView(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
-        # breakpoint()
+        instit = data.get('institution_id', False)
+        input_id = instit
+        institution = Institution.objects.get(id=input_id)
+        breakpoint()
         donation = Donation.objects.create(user=request.user,
                                            quantity=data.get('quantity', False),
-                                           institution=Institution.objects.get(id=int(data.get('institution_id', False))),
+                                           institution=Institution.objects.get(id=data.get('institution_id', False)),
                                            address_street_no=data.get('address_street_no', False),
                                            city=data.get('city', False),
                                            zip_code=data.get('zip_code', False),
@@ -48,10 +51,11 @@ class AddDonationView(LoginRequiredMixin, View):
                                            pick_up_time=data.get('pick_up_time'),
                                            pick_up_comment=data.get('pick_up_comment', False),
                                            )
-        for object in data.get('categories', False):
-            donation.categories.add(Category.objects.get(id=object))
+        for object in [x for x in data.get('categories', False).replace(',','')]:
+            donation.categories.add(Category.objects.get(id=int(object)))
         donation.save()
         return JsonResponse({'url': reverse('form_confirmation')})
+
         # data = request.POST.dict()
         # form = AddDonationForm(data)
         # breakpoint()

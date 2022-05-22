@@ -8,7 +8,7 @@ from fundraiser_app.models import Institution, Category
 
 class AddDonationForm(forms.Form):
     quantity = forms.CharField(max_length=150)
-    institution_id = forms.CharField(max_length=150)
+    institution = forms.CharField(max_length=150)
     address_street_no = forms.CharField(max_length=150)
     city = forms.CharField(max_length=64)
     zip_code = forms.CharField(max_length=7)

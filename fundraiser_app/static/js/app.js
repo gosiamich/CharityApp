@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   class Help {
     constructor($el) {
       this.$el = $el;
-      this.$buttonsContainer = $el.querySelector(".help--buttons");
+      this. = $el.querySelector(".help--buttons");
       this.$slidesContainers = $el.querySelectorAll(".help--slides");
       this.currentSlide = this.$buttonsContainer.querySelector(".active").parentElement.dataset.id;
       this.init();
@@ -354,9 +354,9 @@ document.addEventListener("DOMContentLoaded", function() {
         headers: {
         "X-CSRFToken": getCookie("csrftoken"),
         "Accept": "application/json",
-        // "Content-Type": "application/json"
+        "Content-Type": "application/json"
     },
-        body: data,
+        body: JSON.stringify(data),
       })
       .then(response => response.json())
       .then(data => {
