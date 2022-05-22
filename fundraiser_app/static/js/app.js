@@ -354,9 +354,9 @@ document.addEventListener("DOMContentLoaded", function() {
         headers: {
         "X-CSRFToken": getCookie("csrftoken"),
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        // "Content-Type": "application/json"
     },
-        body: JSON.stringify(data),
+        body: data,
       })
       .then(response => response.json())
       .then(data => {
