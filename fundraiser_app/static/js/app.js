@@ -316,19 +316,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const more_info = document.querySelector("#more_info").value;
 
       // const formularz = document.querySelector('#form')
-      const data = new FormData()
-      data.append("categories", input_categories_id);
-      data.append("institution_id", input_organization_id);
-      data.append("quantity", input_bags);
-      data.append("address_street_no", street);
-      data.append("city", city);
-      data.append("zip_code", postcode);
-      data.append("phone", phone);
-      data.append("pick_up_date", date);
-      data.append("pick_up_time", time);
-      data.append("pick_up_comment", more_info);
+      // const data = new FormData(formularz)
+      // data.append("categories", input_categories_id);
+      // data.append("institution", input_organization_id);
+      // data.append("quantity", input_bags);
+      // data.append("address_street_no", street);
+      // data.append("city", city);
+      // data.append("zip_code", postcode);
+      // data.append("phone", phone);
+      // data.append("pick_up_date", date);
+      // data.append("pick_up_time", time);
+      // data.append("pick_up_comment", more_info);
 
-      console.log(data);
+      // console.log(data);
     function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -345,8 +345,8 @@ document.addEventListener("DOMContentLoaded", function() {
     return cookieValue;
 }
 
-
-
+ const formularz = document.querySelector('#form')
+const data = new FormData(formularz)
       fetch('/add_donation/', {
         method: 'POST',
         redirect: "follow",

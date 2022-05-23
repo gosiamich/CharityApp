@@ -83,7 +83,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba worków:
-                <input class="form-bags input-bags" type="number" name="bags" step="1" min="1" />
+                <input class="form-bags input-bags" type="number" name="quantity" step="1" min="1" />
               </label>
             </div>
 
@@ -101,7 +101,7 @@
             {% for organization in organizations %}
             <div class="form-group form-group--checkbox">
               <label>
-                <input type="radio" class="input_organization" name="organization" value="{{ organization.id }}"" />
+                <input type="radio" class="input_organization" name="institution" value="{{ organization.id }}"" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{ organization.name}}</div>
@@ -125,7 +125,7 @@
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <input id="street" type="text" name="address" /> </label>
+                  <label> Ulica <input id="street" type="text" name="address_street_no" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
@@ -134,13 +134,13 @@
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <input id="postcode" type="text" name="postcode" />
+                    Kod pocztowy <input id="postcode" type="text" name="zip_code" />
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input id="phone" type="phone" name="phone" />
+                    Numer telefonu <input id="phone" type="text" name="phone_number" />
                   </label>
                 </div>
               </div>
@@ -148,17 +148,17 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <input id="date" type="date" name="date" /> </label>
+                  <label> Data <input id="date" type="date" name="pick_up_date" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Godzina <input id="time" type="time" name="time" /> </label>
+                  <label> Godzina <input id="time" type="time" name="pick_up_time" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <textarea id="more_info" name="more_info" rows="5"></textarea>
+                    <textarea id="more_info" name="pick_up_comment" rows="5"></textarea>
                   </label>
                 </div>
               </div>

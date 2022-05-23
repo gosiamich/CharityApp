@@ -69,7 +69,7 @@ class CreateUserForm(forms.Form):
 class UpdateUserForm(forms.Form):
     first_name = forms.CharField(label='  Imię', widget=forms.TextInput())
     last_name = forms.CharField(label='Nazwisko', widget=forms.TextInput())
-    password = forms.CharField(label='  Akrualne hasło', widget=forms.PasswordInput())
+    password = forms.CharField(label='  Aktualne hasło', widget=forms.PasswordInput())
 
 
 class ChangePassword(forms.Form):
