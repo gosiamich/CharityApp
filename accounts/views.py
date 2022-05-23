@@ -18,7 +18,7 @@ class RegisterView(View):
 
     def post(self, request):
         form = CreateUserForm(request.POST)
-        # breakpoint()
+
         if form.is_valid():
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
@@ -51,7 +51,8 @@ class LoginView(View):
                     return render(request, 'fundraiser_app/login.html', {'form': form, 'message': 'Wprowadź poprawne hasło'})
                 else:
                     return redirect('register')
-        return render(request, 'fundraiser_app/login.html', {'form': form})
+        else:
+            return render(request, 'fundraiser_app/login.html', {'form': form})
 
 
 class LogOutView(View):

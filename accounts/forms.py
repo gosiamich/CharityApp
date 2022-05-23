@@ -55,7 +55,6 @@ class CreateUserForm(forms.Form):
 
     def clean(self):
         data = super().clean()
-        errors = []
         if data['password'] != data['password2']:
             self.add_error('password','Podaj dwukrotnie takie samo hasło!')
         if not 'password' in data:
@@ -79,7 +78,6 @@ class ChangePassword(forms.Form):
 
     def clean(self):
         data = super().clean()
-        errors = []
         if data['new_password'] != data['new_password2']:
             self.add_error('new_password','Podaj dwukrotnie takie samo hasło!')
         if not 'new_password' in data:

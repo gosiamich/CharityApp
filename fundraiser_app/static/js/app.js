@@ -353,8 +353,7 @@ const data = new FormData(formularz)
         credentials: "same-origin",
         headers: {
         "X-CSRFToken": getCookie("csrftoken"),
-        "Accept": "application/json",
-        // "Content-Type": "application/json"
+        "Accept": "application/json"
     },
         body: data,
       })
