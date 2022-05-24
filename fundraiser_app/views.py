@@ -33,11 +33,12 @@ class AddDonationView(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
-        # data = request.POST.dict()
         form = AddDonationModelForm(data)
-        breakpoint()
+        # breakpoint()
         if form.is_valid():
-            form.save()
+            donation = form.save(commit=False)
+            donation.user =request.user
+            donation.save()
             return JsonResponse({'url': reverse('form_confirmation')})
         else:
             categories = Category.objects.all()

@@ -297,37 +297,6 @@ document.addEventListener("DOMContentLoaded", function() {
       this.updateForm();
 
 
-        let input_categories = [...document.querySelectorAll(".input_categories")].filter(el => el.checked === true);
-        const input_categories_id = [];
-        input_categories.forEach(el => {
-          input_categories_id.push(parseInt(el.value));
-        })
-        let input_organization = [...document.querySelectorAll(".input_organization")].filter(el => el.checked === true)[0]
-        const input_organization_id = parseInt(input_organization.value)
-
-
-        let input_bags = parseInt(document.querySelector(".input-bags").value);
-        const street = document.querySelector("#street").value;
-        const city = document.querySelector("#city").value;
-        const postcode = document.querySelector("#postcode").value;
-        const phone = document.querySelector("#phone").value;
-        const date = document.querySelector("#date").value;
-        const time = document.querySelector("#time").value;
-        const more_info = document.querySelector("#more_info").value;
-
-      // const formularz = document.querySelector('#form')
-      // const data = new FormData(formularz)
-      // data.append("categories", input_categories_id);
-      // data.append("institution", input_organization_id);
-      // data.append("quantity", input_bags);
-      // data.append("address_street_no", street);
-      // data.append("city", city);
-      // data.append("zip_code", postcode);
-      // data.append("phone", phone);
-      // data.append("pick_up_date", date);
-      // data.append("pick_up_time", time);
-      // data.append("pick_up_comment", more_info);
-
       // console.log(data);
     function getCookie(name) {
     let cookieValue = null;
