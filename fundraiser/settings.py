@@ -13,12 +13,14 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-#
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-3l37wl&jnu(3-ec__ny0fq_$nls3n%f)7ve1%wu701k_o@dl57'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -78,10 +80,26 @@ WSGI_APPLICATION = 'fundraiser.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 try:
-    from fundraiser.local_settings import DATABASES, SECRET_KEY
+    from fundraiser.local_settings import DATABASES
 except ModuleNotFoundError:
     print('File local_settings.py not found!')
     exit(0)
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '<HOST>',
+        'NAME': '<DB_NAME>',
+        'USER': '<USER>',
+        'PASSWORD': '<PASS>',
+        'PORT': '<PORT>',
+    }
+}
+
+
 
 AUTH_USER_MODEL = 'accounts.User'
 # Password validation
