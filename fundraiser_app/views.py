@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
@@ -40,7 +39,6 @@ class AddDonationView(LoginRequiredMixin, View):
             donation.user = request.user
             donation.save()
             cat = list(form.cleaned_data.get('categories'))
-            breakpoint()
             donation.categories.set(cat)
             return JsonResponse({'url': reverse('form_confirmation')})
         else:
