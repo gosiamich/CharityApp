@@ -79,25 +79,21 @@ WSGI_APPLICATION = 'fundraiser.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-try:
-    from fundraiser.local_settings import DATABASES
-except ModuleNotFoundError:
-    print('File local_settings.py not found!')
-    exit(0)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fundraiser_db',
+        'HOST': 'localhost',
+        'PASSWORD': 'coderslab',
+        'USER': 'postgres',
+        'PORT': 5432
+    }
+}
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '<HOST>',
-        'NAME': '<DB_NAME>',
-        'USER': '<USER>',
-        'PASSWORD': '<PASS>',
-        'PORT': '<PORT>',
-    }
-}
 
 
 
