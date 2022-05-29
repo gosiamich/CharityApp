@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,14 +79,16 @@ WSGI_APPLICATION = 'fundraiser.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+env = environ.Env()
+environ.Env.read_env()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fundraiser_db',
         'HOST': 'localhost',
-        'PASSWORD': 'coderslab',
-        'USER': 'postgres',
+        'PASSWORD': env('DB_PASSWORD'),
+        'USER': env('DB_USER'),
         'PORT': 5432
     }
 }
