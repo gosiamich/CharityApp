@@ -86,4 +86,3 @@ coverage.xml
 
 fundraiser/local_settings.py
 fundraiser/.env
-.env
